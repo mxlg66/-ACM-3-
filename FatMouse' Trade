@@ -1,0 +1,39 @@
+#include<stdio.h>
+#include<math.h>
+#include<algorithm>
+using namespace std;
+struct trade
+{
+	double a;
+	double b;
+	double c;
+}fj[10000];
+int com(trade a, trade b) {
+	return a.c > b.c;
+}
+int main() {
+	int m,n,i,j;
+	double q=0, w=0;
+	double  sum;
+	while (scanf("%d%d", &m, &n)&&(m!=-1&&n!=-1)) {
+		sum = 0;
+		for (i = 0; i < n; i++) {
+			scanf("%lf%lf", &q, &w);
+			fj[i].a = q;
+			fj[i].b = w;
+			fj[i].c = q / w;
+		}
+		sort(fj, fj + n, com);
+		for (j = 0; j < n; j++) {
+			if (m - fj[j].b > 0.001) {
+				sum += fj[j].a;
+				m -= fj[j].b;
+			}
+			else { 
+			sum += m * fj[j].a / fj[j].b;
+			break;
+			}
+		}
+		printf("%.3lf\n", sum);
+	}
+}
