@@ -1,0 +1,34 @@
+#include<stdio.h>
+#include<string.h>
+#include <iostream> 
+int main() {
+	int node[200];
+		int t,n,i,j;
+		int a, b,c,e,g,d;
+		scanf("%d", &t);
+		while (t--)
+		{
+			for (g = 0; g < 200; g++)
+				node[g] = 0;
+			scanf("%d", &n);
+			for (i = 0; i < n; i++) {
+				scanf("%d%d", &a, &b);
+				a = (a - 1) / 2;
+				b = (b - 1) / 2;
+				if (a > b) {
+					c = a;
+					a = b;
+					b = c;
+				}
+				for (j = a; j <= b; j++)
+					node[j]++;
+			}
+			 d = -1;
+			for (e = 0; e < 200; e++) {
+				if (node[e] >d)
+					d = node[e];
+			}
+			printf("%d\n", d * 10);
+		}
+		return 0;
+}
