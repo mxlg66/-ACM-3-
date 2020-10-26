@@ -1,0 +1,37 @@
+#include<stdio.h>
+#include<math.h>
+#include<algorithm>
+using namespace std;
+bool com(int a, int b) {
+	return a > b;
+}
+int main() {
+	int a[10000];
+	int t, n, i, j,k;
+	scanf("%d", &t);
+	for (t; t; t--) {
+		int tol = 0, edge = 0;
+		scanf("%d", &n);
+		for (i = 1; i <= n; i++) {
+			scanf("%d", &a[i]);
+			tol += a[i];
+		}
+		if (tol & 1) {
+			printf("no\n");
+			continue;
+		}
+		sort(a+1, a+1 + n, com);
+		bool flag = true;
+		for (j = 0; j <= n && flag; j++) {
+			for (k = j + 1; k <= n && a[j]; k++) {
+				if (a[k] == 0) continue;
+				a[j]--; a[k]--;
+			}
+			sort(a + j + 1, a + 1 + n, com);
+		}
+			for (int f = 1; f <= n; f++) { if (a[f] != 0) flag = false; }
+		if (flag) printf("yes\n");
+		else printf("no\n");
+	}
+	return 0;
+}
