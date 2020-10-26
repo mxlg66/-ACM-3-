@@ -1,0 +1,47 @@
+#include<stdio.h>
+#include<math.h>
+#include<algorithm>
+using namespace std;
+int main() {
+	int n, m,j, k;
+	int a[10000], b[10000];
+	while (scanf("%d", &n)==1 && n) {
+		for (int i = 0; i < n; i++) scanf("%d", &a[i]);
+		for (int i = 0; i < n; i++) scanf("%d", &b[i]);
+		sort(a, a + n);
+		sort(b, b + n);
+		int al = 0, ah = n - 1;
+		int bl = 0, bh = n - 1;
+		int sum = 0;
+		while (al <= ah && bl <= bh) {
+			if (a[al] > b[bl]) {
+				sum += 200;
+				al++; bl++;
+			}
+			else if (a[al] < b[bl]) {
+				sum -= 200;
+				al++; bh--;
+			}
+			else {
+				if (a[ah] > b[bh]) {
+					sum += 200;
+					ah--; bh--;
+				}
+				else if (a[ah] < b[bh]) {
+					sum -= 200;
+					al++; bh--;
+				}
+				else {
+					if (a[al] < b[bh]) {
+						sum -= 200;
+						al++; bh--;
+					}
+					else if (a[al] == b[bh])
+						break;
+				}
+			}
+		}
+		printf("%d\n", sum);
+	}
+	return 0;
+}
