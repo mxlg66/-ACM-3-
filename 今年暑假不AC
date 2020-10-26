@@ -1,0 +1,32 @@
+#include<stdio.h>
+#include<math.h>
+#include<algorithm>
+using namespace std;
+struct work
+{
+	int s, e;
+}f[10000];
+bool comp( work a,  work  b) {
+	if (a.e == b.e)
+		return a.s > b.s;
+	return a.e < b.e;
+}
+int main() {
+	int n, i, j, k,m;
+	while (scanf("%d", &n) && n) {
+		for (i = 0; i < n; i++) 
+			scanf("%d%d", &f[i].s, &f[i].e);
+			sort(f, f + n,comp);
+			m = f[0].e;
+			k = 1;
+			for (i = 1; i < n; i++)
+			{
+				if (f[i].s >= m) {
+					m = f[i].e;
+					k++;
+				}
+			}
+			printf("%d\n", k);
+		}
+	return 0;
+}
