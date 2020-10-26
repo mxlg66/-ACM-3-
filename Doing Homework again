@@ -1,0 +1,46 @@
+#include<stdio.h>
+#include<math.h>
+#include<algorithm>
+using namespace std;
+struct work
+{
+	int time;
+	int score;
+	bool flag;
+}works[1005];
+bool comp( work a,  work  b) {
+	if (a.time != b.time)
+		return a.time < b.time;
+	   return a.score> b.score;
+}
+int main(){
+	int T, N, i, j;
+	scanf("%d", &T);
+	while (T--) {
+		int k = 1;
+		scanf("%d", &N);
+		for (i = 0; i < N; i++) scanf("%d", &works[i].time);
+		for (i = 0; i < N; i++) {
+			scanf("%d", &works[i].score);
+			works[i].flag = true;
+		}
+		sort(works, works + N, comp);
+		int ans = 0;
+		for (i = 0; i < N; i++) {
+			if (works[i].time >= k) {
+				k++;
+				continue;
+			}
+			int p = works[i].score, pos = i;
+			for (j = 0; j < i; j++)
+				if (works[j].score < p && works[j].flag) {
+					p = works[j].score;
+					pos = j;
+				}
+			ans += p;
+			works[pos].flag = false;
+		}
+		printf("%d\n", ans);
+	}
+	return 0;
+}
