@@ -1,0 +1,68 @@
+#include <stdio.h>
+#include <string.h>
+ #include <algorithm>
+ using namespace std;
+ #define N 15
+ struct vertex
+ {
+	     int degree;
+	     int index;
+	 }v[N];
+	 int cmp(const void* a, const void* b)
+		 {
+		     return ((vertex*)b)->degree - ((vertex*)a)->degree;
+		 }
+	 int main()
+		 {
+	    int r, k, p, q;
+	     int i, j;
+	     int d1;
+	     int T, n;
+	     int Edge[N][N], flag;
+		     scanf("%d", &T);
+	     while (T--)
+			     {
+			         scanf("%d", &n);
+			        for (i = 0; i < n; i++)
+				         {
+				             scanf("%d", &v[i].degree);
+				             v[i].index = i;
+				         }
+			         memset(Edge, 0, sizeof(Edge));
+			        flag = 1;
+			         for (int k = 0; k < n && flag; k++)
+				         {
+				            qsort(v + k, n - k, sizeof(vertex), cmp);
+				            i = v[k].index;
+				             d1 = v[k].degree;
+				             if (d1 > n - k - 1)
+					                flag = 0;
+				             for (r = 1; r <= d1 && flag; r++)
+					             {
+					              j = v[k + r].index;
+					                if (v[k + r].degree <= 0)
+						                     flag = 0;
+					                v[k + r].degree--;
+					                Edge[i][j] = Edge[j][i] = 1;
+					            }
+				        }
+			       if (flag)
+			         {
+				            puts("YES");
+				           for (p = 0; p < n; p++)
+					           {
+				                 for (q = 0; q < n; q++)
+					                 {
+					                     if (q)
+							                         printf(" ");
+						                    printf("%d", Edge[p][q]);
+						                }
+					                puts("");
+					             }
+				         }
+			        else puts("NO");
+			         if (T)
+			             puts("");
+		     }
+		     return 0;
+		 }
